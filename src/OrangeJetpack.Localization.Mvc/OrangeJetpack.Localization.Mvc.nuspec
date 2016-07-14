@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>OrangeJetpack.Localization.Mvc</id>
+    <version>$version$</version>
+    <title>OrangeJetpack.Localization.Mvc</title>
+    <authors>Andy Mehalick</authors>
+    <owners>Orange Jetpack Studios</owners>
+    <projectUrl>https://github.com/mehalick/OrangeJetpack.Localization.Mvc</projectUrl>
+    <iconUrl>https://ojs.azureedge.net/assets/orange-jetpack-logo-white-128x128-635776631313452039.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+	<licenseUrl>https://github.com/mehalick/OrangeJetpack.Localization.Mvc/blob/master/LICENSE.md</licenseUrl>
+    <description>Adds support to enable entities to have localized properties stored as JSON. Adds UI editor template and settings for an ASP.NET MVC web application.</description>
+    <tags>Localization JSON MVC</tags>
+    <dependencies>
+      <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
+      <dependency id="Newtonsoft.Json" version="8.0.3" />
+      <dependency id="OrangeJetpack.Localization" version="1.7.5" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\OrangeJetpack.Localization.Mvc.dll" target="lib\net45" />
+	<file src="content\LocalizedContent.cshtml" target="content\Views\Shared\EditorTemplates" />
+	<file src="content\web.config.transform" target="content" />
+  </files>
+</package>
