@@ -13,6 +13,7 @@ assembly_info:
 before_build:
 - cmd: nuget restore
 build:
+  publish_nuget: true
   verbosity: minimal
 artifacts:
 - path: /.*\.nupkg/
