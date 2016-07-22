@@ -44,4 +44,3 @@ namespace OrangeJetpack.Localization.Mvc
         }
     }
 }
-}
