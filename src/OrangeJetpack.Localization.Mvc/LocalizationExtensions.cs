@@ -8,8 +8,21 @@ namespace OrangeJetpack.Localization.Mvc
 {
     public static class LocalizationExtensions
     {
-        public static T Update<T>(this T item, ModelStateDictionary modelStateDictionary, Expression<Func<T, string>> property, LocalizedContent[] contents) where T : class, ILocalizable
+        /// <summary>
+        /// Sets an item's localized content property from a collection and updates ModelState.
+        /// </summary>
+        /// <param name="item">An ILocalizable item.</param>
+        /// <param name="modelStateDictionary"></param>
+        /// <param name="property">The property to set.</param>
+        /// <param name="contents">The collection of localized content.</param>
+        /// <returns>The original item with localized property set.</returns>
+        public static T Set<T>(this T item, ModelStateDictionary modelStateDictionary, Expression<Func<T, string>> property, LocalizedContent[] contents) where T : class, ILocalizable
         {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
             item.Set(property, contents);
 
             var isValid = true;
@@ -27,20 +40,25 @@ namespace OrangeJetpack.Localization.Mvc
 
             if (isValid)
             {
-                var memberExpression = (MemberExpression)property.Body;
-                var propertyInfo = (PropertyInfo)memberExpression.Member;
-                var propertyName = propertyInfo.Name;
-
-                var modelState = modelStateDictionary
-                    .Where(i => i.Key.EndsWith(propertyName))
-                    .Where(i => i.Value.Errors.Any())
-                    .Select(i => i.Value)
-                    .FirstOrDefault();
-
-                modelState?.Errors.Clear();
+                ClearModelStateErrors(modelStateDictionary, property);
             }
 
             return item;
+        }
+
+        private static void ClearModelStateErrors<T>(ModelStateDictionary modelStateDictionary, Expression<Func<T, string>> property) where T : class, ILocalizable
+        {
+            var memberExpression = (MemberExpression) property.Body;
+            var propertyInfo = (PropertyInfo) memberExpression.Member;
+            var propertyName = propertyInfo.Name;
+
+            var modelState = modelStateDictionary
+                .Where(i => i.Key.EndsWith(propertyName))
+                .Where(i => i.Value.Errors.Any())
+                .Select(i => i.Value)
+                .FirstOrDefault();
+
+            modelState?.Errors.Clear();
         }
     }
 }

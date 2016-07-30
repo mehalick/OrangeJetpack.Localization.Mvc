@@ -21,6 +21,6 @@
   <files>
     <file src="bin\Release\OrangeJetpack.Localization.Mvc.dll" target="lib\net45" />
 	<file src="content\LocalizedContent.cshtml" target="content\Views\Shared\EditorTemplates" />
-	<file src="content\web.config.transform" target="content" />
+	<file src="content\web.config.install.xdt" target="content" />
   </files>
 </package>
