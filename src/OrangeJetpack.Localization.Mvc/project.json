@@ -10,9 +10,7 @@
       "url": "https://github.com/mehalick/OrangeJetpack.Localization.Mvc"
     },
     "files": {
-      "mappings": {
-        "Views/Shared/EditorTemplates/": "Views/Shared/EditorTemplates/"
-      }
+      "include": [ "Views/Shared/EditorTemplates/LocalizedContent.cshtml" ]
     }
   },
   "dependencies": {
