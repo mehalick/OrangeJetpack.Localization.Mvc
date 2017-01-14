@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0-beta-*",
+  "packOptions": {
+    "summary": "Adds support to enable entities to have localized properties stored as JSON. Adds UI editor template and settings for an ASP.NET Core web application.",
+    "iconUrl": "https://ojs.azureedge.net/assets/orange-jetpack-logo-white-128x128-635776631313452039.png",
+    "licenseUrl": "https://github.com/mehalick/OrangeJetpack.Localization.Mvc/blob/master/LICENSE",
+    "projectUrl": "https://github.com/mehalick/OrangeJetpack.Localization.Mvc",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/mehalick/OrangeJetpack.Localization.Mvc"
+    },
+    "files": {
+      "mappings": {
+        "Views/Shared/EditorTemplates/": "Views/Shared/EditorTemplates/"
+      }
+    }
+  },
+  "dependencies": {
+    "Microsoft.AspNetCore.Mvc.Abstractions": "1.1.0",
+    "NETStandard.Library": "1.6.1",
+    "OrangeJetpack.Localization": "2.0.0-beta-0008"
+  },
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}
