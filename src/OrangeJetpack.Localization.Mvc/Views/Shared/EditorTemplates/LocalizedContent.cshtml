@@ -12,7 +12,7 @@
     LocalizedContent.TryDeserialize(Model, out localizedContents);
     var modelMetaData = ViewData.ModelMetadata;
     var templateHint = modelMetaData.TemplateHint;
-    var propertyId = $"LocalizedContent-{Guid.NewGuid().ToString("n")}";
+    var propertyId = $"LocalizedContent-{Guid.NewGuid():n}";
     var propertyName = modelMetaData.PropertyName;
     var friendlyName = Regex.Replace(
         Regex.Replace(propertyName, @"(\P{Ll})(\P{Ll}\p{Ll})", "$1 $2"), @"(\p{Ll})(\P{Ll})", "$1 $2")
@@ -34,7 +34,7 @@
     private static TagBuilder GetTextArea(string value)
     {
         var tagBuilder = new TagBuilder("textarea");
-        tagBuilder.SetInnerText(value);
+        tagBuilder.InnerHtml.AppendHtml(value);
         return tagBuilder;
     }
 
@@ -49,28 +49,26 @@
 }
 
 <style>
-    
     .localized-content {
         margin-bottom: 0;
     }
 
-    .localized-content > li {
-        margin-bottom: 5px;   
-    }
+        .localized-content > li {
+            margin-bottom: 5px;
+        }
 
-    .localized-content > li:last-child {
-        margin-bottom: 0;   
-    }
+            .localized-content > li:last-child {
+                margin-bottom: 0;
+            }
 
-    .localized-content .localized-input {
-        max-width: 100%;
-    }
+        .localized-content .localized-input {
+            max-width: 100%;
+        }
 
-    .localized-content .input-group-addon {
-        font-size: 10px;
-        text-transform: uppercase;
-    }
-
+        .localized-content .input-group-addon {
+            font-size: 10px;
+            text-transform: uppercase;
+        }
 </style>
 
 <ul id="@propertyId" class="localized-content list-unstyled">
@@ -81,12 +79,12 @@
         var inputId = $"{propertyName}_{i}_Value";
         var inputName = $"{propertyName}[{i}].Value";
         var inputKey = $"{propertyName}[{i}].Key";
-        var cultureInfo = CultureInfo.GetCultureInfo(localizedKey);
+        var cultureInfo = new CultureInfo(localizedKey);
         var languageDirection = cultureInfo.TextInfo.IsRightToLeft ? "rtl" : "ltr";
         var isRequired = modelMetaData.IsRequired && LocalizedContent.RequiredLanguages.Contains(localizedKey);
 
         <li data-for="@inputId">
-            <input type="hidden" name="@inputKey" value="@localizedKey"/>
+            <input type="hidden" name="@inputKey" value="@localizedKey" />
 
             <div class="input-group">
 
@@ -123,7 +121,7 @@
                 <span class="field-validation-valid" data-valmsg-for="@inputName" data-valmsg-replace="false">Please enter text or content for @friendlyName.</span>
             }
         </li>
-    }
+                    }
 </ul>
 
 <script>
@@ -150,5 +148,5 @@
         setMinWidth(labels, maxWidth);
 
     })();
-    
+
 </script>

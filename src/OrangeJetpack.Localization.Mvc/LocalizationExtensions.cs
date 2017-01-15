@@ -54,11 +54,18 @@ namespace OrangeJetpack.Localization.Mvc
 
             var modelState = modelStateDictionary
                 .Where(i => i.Key.EndsWith(propertyName))
-                .Where(i => i.Value.Errors.Any())
-                .Select(i => i.Value)
+                .Where(i => i.Value.ValidationState == ModelValidationState.Invalid)
                 .FirstOrDefault();
 
-            modelState?.Errors.Clear();
+            modelStateDictionary.ClearValidationState(modelState.Key);
+            modelStateDictionary.MarkFieldValid(modelState.Key);
+
+            if (modelStateDictionary.Any(i => i.Value.ValidationState == ModelValidationState.Invalid))
+            {
+                return;
+            }
+
+            modelStateDictionary.Clear();
         }
     }
 }
